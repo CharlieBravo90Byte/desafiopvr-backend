@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -62,10 +63,20 @@ public class TrabajadorController {
         }
     }
 
-    @DeleteMapping("/trabajadores/{Id}")
+    //@DeleteMapping(path =  "/trabajadores/{Id}")
+    @RequestMapping(value = "/trabajadores/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteTrabajador(@PathVariable("id")  Long id) {
-        trabajadorService.deleteTrabajador(id);
-        return ResponseEntity.noContent().build();
+        /*trabajadorService.deleteTrabajador(id);
+        return ResponseEntity.noContent().build();*/
+        
+        try {
+            System.out.println("Intentando eliminar trabajador con ID: " + id); // Log para debug
+            trabajadorService.deleteTrabajador(id);
+            return new ResponseEntity<>("Trabajador eliminado correctamente", HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("Error al eliminar trabajador: " + e.getMessage()); // Log para debug
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
         /*try {
             trabajadorService.deleteTrabajador(id);
             return new ResponseEntity<>("Trabajador eliminado correctamente", HttpStatus.OK);

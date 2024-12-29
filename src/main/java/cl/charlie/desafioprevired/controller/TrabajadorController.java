@@ -8,7 +8,9 @@ import cl.charlie.desafioprevired.model.Trabajador;
 import cl.charlie.desafioprevired.service.TrabajadorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,34 +27,50 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 27122024
  */
 @RestController
-@RequestMapping("/api/trabajadores")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TrabajadorController {
     @Autowired
     private TrabajadorService trabajadorService;
 
-    @PostMapping
-    public ResponseEntity<Trabajador> crearTrabajador(@RequestBody Trabajador trabajador) {
-        return ResponseEntity.ok(trabajadorService.crearTrabajador(trabajador));
+    @PostMapping("/empresas/{empresaId}/trabajadores")
+    public ResponseEntity<?> createTrabajador(@PathVariable Long empresaId, @RequestBody Trabajador trabajador) {
+        try {
+            Trabajador nuevoTrabajador = trabajadorService.saveTrabajador(empresaId, trabajador);
+            return new ResponseEntity<>(nuevoTrabajador, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Trabajador>> obtenerTodosLosTrabajadores() {
-        return ResponseEntity.ok(trabajadorService.obtenerTodosLosTrabajadores());
+    @GetMapping("/empresas/{empresaId}/trabajadores")
+    public ResponseEntity<?> getTrabajadoresByEmpresa(@PathVariable Long empresaId) {
+        try {
+            return new ResponseEntity<>(trabajadorService.findByEmpresaId(empresaId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @PutMapping("/trabajadores/{id}")
+    public ResponseEntity<?> updateTrabajador(@PathVariable Long id, @RequestBody Trabajador trabajador) {
+        try {
+            Trabajador updatedTrabajador = trabajadorService.updateTrabajador(id, trabajador);
+            return new ResponseEntity<>(updatedTrabajador, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Trabajador> obtenerTrabajadorPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(trabajadorService.obtenerTrabajadorPorId(id));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Trabajador> actualizarTrabajador(@PathVariable Long id, @RequestBody Trabajador trabajador) {
-        return ResponseEntity.ok(trabajadorService.actualizarTrabajador(id, trabajador));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarTrabajador(@PathVariable Long id) {
-        trabajadorService.eliminarTrabajador(id);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/trabajadores/{Id}")
+    public ResponseEntity<?> deleteTrabajador(@PathVariable("id")  Long id) {
+        trabajadorService.deleteTrabajador(id);
+        return ResponseEntity.noContent().build();
+        /*try {
+            trabajadorService.deleteTrabajador(id);
+            return new ResponseEntity<>("Trabajador eliminado correctamente", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }*/
     }
 }

@@ -19,5 +19,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TrabajadorRepository extends JpaRepository<Trabajador, Long> {
     
+    List<Trabajador> findByEmpresaId(Long empresaId);
     boolean existsByRut(String rut);
 }

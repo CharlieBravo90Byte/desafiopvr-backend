@@ -96,7 +96,7 @@ public class EmpresaController {
      * @param empresa Nuevos datos de la empresa
      * @return ResponseEntity retorna con la empresa actualizada o si no existe
      */
-    @PutMapping("/{empresaId}")
+    @PutMapping("/{id}")
     public ResponseEntity<Empresa> actualizarEmpresa(@PathVariable Long id, @RequestBody Empresa empresa) {
         return ResponseEntity.ok(empresaService.actualizarEmpresa(id, empresa));
     }
@@ -108,15 +108,19 @@ public class EmpresaController {
      * @param empresaId ID de la empresa a eliminar
      * @return ResponseEntity retorna sin contenido o si no existe
      */
-    @DeleteMapping("/{empresaId}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarEmpresa(@PathVariable Long id) {
-        try {
+        empresaService.eliminarEmpresa(id);
+        return ResponseEntity.noContent().build();
+        /*try {
             empresaService.eliminarEmpresa(id);
             return ResponseEntity.ok().build();
             } catch (RuntimeException e) {
                 return ResponseEntity.notFound().build();
-            }
+            }*/
     }
+    
+    
     
     
 }

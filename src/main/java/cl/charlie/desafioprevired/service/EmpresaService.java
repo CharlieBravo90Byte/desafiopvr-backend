@@ -36,9 +36,9 @@ public class EmpresaService {
 
     @Transactional
     public Empresa crearEmpresa(Empresa empresa) {
-        if (!RutValidator.validarRut(empresa.getRut())) {
+        /*if (!RutValidator.validarRut(empresa.getRut())) {
             throw new IllegalArgumentException("RUT inválido");
-        }
+        }*/
         empresa.setFechaInsercion(LocalDate.now());
         empresa.setIdentificadorUnico(IdentificadorUnicoGenerator.generarIdentificadorUnico());
         return empresaRepository.save(empresa);
@@ -56,9 +56,9 @@ public class EmpresaService {
     @Transactional
     public Empresa actualizarEmpresa(Long id, Empresa empresa) {
         Empresa empresaExistente = obtenerEmpresaPorId(id);
-        if (!RutValidator.validarRut(empresa.getRut())) {
+        /*if (!RutValidator.validarRut(empresa.getRut())) {
             throw new IllegalArgumentException("RUT inválido");
-        }
+        }*/
         empresaExistente.setRazonSocial(empresa.getRazonSocial());
         empresaExistente.setRut(empresa.getRut());
         return empresaRepository.save(empresaExistente);

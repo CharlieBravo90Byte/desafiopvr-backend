@@ -1,4 +1,4 @@
-package cl.charlie.desafioprevired.desafioprevired;
+package cl.charlie.desafioprevired;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

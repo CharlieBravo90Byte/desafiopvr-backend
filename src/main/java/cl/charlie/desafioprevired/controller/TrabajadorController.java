@@ -31,19 +31,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TrabajadorController {
+    
+    private final TrabajadorService trabajadorService; 
+    
+    
+    /**
+     * Constructor para inyeccion
+     * @param trabajadorService logica de negocio
+     */ 
     @Autowired
-    private TrabajadorService trabajadorService;
+    private TrabajadorController(TrabajadorService trabajadorService){
+        this.trabajadorService = trabajadorService;
+    };
 
+    /**
+     * Crea un trabajador 
+     * @param trabajador Datos del trabajdor a crear
+     * @return ResponseEntity retorna el trabajdor creado o error 
+     */
     @PostMapping("/empresas/{empresaId}/trabajadores")
     public ResponseEntity<?> createTrabajador(@PathVariable Long empresaId, @RequestBody Trabajador trabajador) {
         try {
             Trabajador nuevoTrabajador = trabajadorService.saveTrabajador(empresaId, trabajador);
             return new ResponseEntity<>(nuevoTrabajador, HttpStatus.CREATED);
+            //return ResponseEntity.ok(trabajadorService.saveTrabajador(empresaId, trabajador));
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
+    /**
+     * Obtener todos los trabajdores de la empresa
+     * @return ResponseEntity retorna respuesta con o sin informacion
+     */
     @GetMapping("/empresas/{empresaId}/trabajadores")
     public ResponseEntity<?> getTrabajadoresByEmpresa(@PathVariable Long empresaId) {
         try {
@@ -53,6 +73,13 @@ public class TrabajadorController {
         }
     }
     
+    
+    /**
+     * Actualiza un trabajador
+     * @param id ID del trabajdor
+     * @param trabajador Nuevos datos del trabajador
+     * @return ResponseEntity retorna con trabajador actualizada o error
+     */
     @PutMapping("/trabajadores/{id}")
     public ResponseEntity<?> updateTrabajador(@PathVariable Long id, @RequestBody Trabajador trabajador) {
         try {
@@ -63,6 +90,12 @@ public class TrabajadorController {
         }
     }
 
+    
+    /**
+     * Elimina un trabajdor
+     * @param id ID del trabajador
+     * @return ResponseEntity retorna eliminado o error
+     */
     //@DeleteMapping(path =  "/trabajadores/{Id}")
     @RequestMapping(value = "/trabajadores/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteTrabajador(@PathVariable("id")  Long id) {

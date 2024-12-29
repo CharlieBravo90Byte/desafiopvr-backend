@@ -45,56 +45,104 @@ public class Empresa {
     private String identificadorUnico;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinColumn(name = "empresa_id")
     @JsonManagedReference
     private List<Trabajador> trabajadores;
+    
+    // Getters y Setters
 
+    /**
+     * Obtiene el ID de la empresa
+     * @return ID de la empresa
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Establece el ID de la empresa
+     * @param id nuevo ID
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene el RUT de la empresa
+     * @return RUT de la empresa
+     */
     public String getRut() {
         return rut;
     }
 
+    /**
+     * Establece el RUT de la empresa
+     * @param rut nuevo RUT
+     */
     public void setRut(String rut) {
         this.rut = rut;
     }
 
+    /**
+     * Obtiene la razón social de la empresa
+     * @return razón social de la empresa
+     */
     public String getRazonSocial() {
         return razonSocial;
     }
 
+    /**
+     * Establece la razón social de la empresa
+     * @param razonSocial nueva razón social
+     */
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
     }
 
+    /**
+     * Obtiene la fecha de inserción de la empresa
+     * @return fecha de inserción
+     */
     public LocalDate getFechaInsercion() {
         return fechaInsercion;
     }
 
+    /**
+     * Establece la fecha de inserción de la empresa
+     * @param fechaInsercion nueva fecha de inserción
+     */
     public void setFechaInsercion(LocalDate fechaInsercion) {
         this.fechaInsercion = fechaInsercion;
     }
 
+    /**
+     * Obtiene el identificador único de la empresa
+     * @return identificador único
+     */
     public String getIdentificadorUnico() {
         return identificadorUnico;
     }
 
+    /**
+     * Establece el identificador único de la empresa
+     * @param identificadorUnico nuevo identificador único
+     */
     public void setIdentificadorUnico(String identificadorUnico) {
         this.identificadorUnico = identificadorUnico;
     }
 
+    /**
+     * Obtiene la lista de trabajadores de la empresa
+     * @return lista de trabajadores
+     */
     public List<Trabajador> getTrabajadores() {
         return trabajadores;
     }
 
+    /**
+     * Establece la lista de trabajadores de la empresa
+     * @param trabajadores nueva lista de trabajadores
+     */
     public void setTrabajadores(List<Trabajador> trabajadores) {
         this.trabajadores = trabajadores;
     }
-
 }

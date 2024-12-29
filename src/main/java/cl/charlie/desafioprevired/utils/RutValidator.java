@@ -11,6 +11,13 @@ package cl.charlie.desafioprevired.utils;
  * @version 27122024
  */
 public class RutValidator {
+    
+    /**
+     * Valida un RUT chileno verificando su formato y dígito verificador
+     *
+     * @param rut String con el RUT a validar en formato XXXXXXXX-X
+     * @return true si el RUT es válido, false en caso contrario
+     */
     public static boolean validarRut(String rut) {
        
         try {

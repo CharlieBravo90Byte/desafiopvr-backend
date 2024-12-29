@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package cl.charlie.desafioprevired.desafioprevired.repository;
+package cl.charlie.desafioprevired.repository;
 
-import cl.charlie.desafioprevired.desafioprevired.model.Empresa;
+import cl.charlie.desafioprevired.model.Empresa;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
-    /*boolean existsByRutEmpresa(String rutEmpresa);
-    Optional<Empresa> findByRutEmpresa(String rutEmpresa);*/
+    boolean existsByRut(String rut);
+    boolean existsByIdentificadorUnico(String identificadorUnico);
     
 }

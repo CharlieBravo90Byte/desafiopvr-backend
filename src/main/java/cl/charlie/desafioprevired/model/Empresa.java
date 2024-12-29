@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cl.charlie.desafioprevired.desafioprevired.model;
+package cl.charlie.desafioprevired.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
@@ -44,10 +44,8 @@ public class Empresa {
     @Column(nullable = false, unique = true)
     private String identificadorUnico;
 
-    //@OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinColumn(name = "empresa_id")
-    //@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "empresa_id")
     @JsonManagedReference
     private List<Trabajador> trabajadores;
 

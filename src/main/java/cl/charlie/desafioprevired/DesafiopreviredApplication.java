@@ -1,4 +1,4 @@
-package cl.charlie.desafioprevired.desafioprevired;
+package cl.charlie.desafioprevired;
 
 
 import org.springframework.boot.SpringApplication;

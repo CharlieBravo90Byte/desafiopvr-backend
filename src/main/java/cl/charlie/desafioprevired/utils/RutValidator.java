@@ -2,15 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cl.charlie.desafioprevired.desafioprevired.utils;
+package cl.charlie.desafioprevired.utils;
 
 /**
+ * Clase para validar rut chileno
  *
  * @author cabra
+ * @version 27122024
  */
 public class RutValidator {
-    public static boolean isValid(String rut) {
-        // Implementación básica de la validación de RUT chileno
+    public static boolean validarRut(String rut) {
+       
         try {
             String[] parts = rut.split("-");
             String number = parts[0];
